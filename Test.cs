@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace Testing
 {
@@ -10,8 +11,10 @@ namespace Testing
         static void Main(string[] args)
         {
             IWebDriver driver = new ChromeDriver();
+            driver.Url = "https://yopmail.com/";
+            driver.FindElement(By.XPath("//*[@id='listeliens']/a[1]")).Click();
+            String email = driver.FindElement(By.Id("egen")).Text;
             driver.Url = "https://cloud.google.com/";
-            driver.Navigate().GoToUrl("https://yopmail.com/");
             IWebElement search = driver.FindElement(By.Name("q"));
             search.Click();
             search.Clear();
@@ -48,11 +51,22 @@ namespace Testing
             driver.FindElement(By.Id("select_option_139")).Click();
             driver.FindElement(By.XPath("//*[@id='mainForm']/div[2]/div/md-card/md-card-content/div/div[2]/form/div[13]/button")).Click();
             String totalResult = driver.FindElement(By.XPath("//*[@id='resultBlock']/md-card/md-card-content/div/div/div/h2/b")).Text;
-
-
-            
-            //Thread.Sleep(5000);
-            //driver.Quit();
+            Match value = Regex.Match(totalResult, @"\d+,\d+.\d+");
+            driver.Url = "https://yopmail.com/";
+            driver.FindElement(By.XPath("//*[@id='listeliens']/a[1]")).Click();
+            IWebElement field = driver.FindElement(By.Id("login"));
+            field.SendKeys("email");
+            field.SendKeys(Keys.Enter);
+            driver.FindElement(By.XPath("/html/body/div/div[2]/main/div/div[2]/div/div/div[2]/button[2]")).Click();
+            String totalResult2 = driver.FindElement(By.XPath("//*[@id='mail']/div/div/table/tbody/tr[2]/td/h2")).Text;
+            Match value2 = Regex.Match(totalResult, @"\d+,\d+.\d+");
+            if (value == value2){
+                System.Console.WriteLine("Результаты совпадают");
+            } else {
+                System.Console.WriteLine("Результаты не совпадают");
+            }
+            Thread.Sleep(5000);
+            driver.Quit();
         }
     }
 }
