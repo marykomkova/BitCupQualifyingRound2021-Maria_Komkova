@@ -14,6 +14,7 @@ namespace Testing
             driver.Url = "https://yopmail.com/";
             driver.FindElement(By.XPath("//*[@id='listeliens']/a[1]")).Click();
             String email = driver.FindElement(By.Id("egen")).Text;
+
             driver.Url = "https://cloud.google.com/";
             IWebElement search = driver.FindElement(By.Name("q"));
             search.Click();
@@ -57,13 +58,14 @@ namespace Testing
             driver.FindElement(By.Id("input_441")).SendKeys(email);
             driver.FindElement(By.XPath("//*[@id='dialogContent_447']/form/md-dialog-actions/button[2]")).Click();
             driver.Url = "https://yopmail.com/";
-            driver.FindElement(By.XPath("//*[@id='listeliens']/a[1]")).Click();
+            Thread.Sleep(5000);
             IWebElement field = driver.FindElement(By.Id("login"));
-            field.SendKeys("email");
+            field.Clear();
+            field.SendKeys(email);
             field.SendKeys(Keys.Enter);
-            driver.FindElement(By.XPath("/html/body/div/div[2]/main/div/div[2]/div/div/div[2]/button[2]")).Click();
-            String totalResult2 = driver.FindElement(By.XPath("//*[@id='mail']/div/div/table/tbody/tr[2]/td/h2")).Text;
-            Match value2 = Regex.Match(totalResult, @"\d+,\d+.\d+");
+            Thread.Sleep(5000);
+            String totalResult2 = driver.FindElement(By.TagName("h3")).Text;
+            Match value2 = Regex.Match(totalResult2, @"\d+,\d+.\d+");
             if (value == value2){
                 System.Console.WriteLine("Результаты совпадают");
             } else {
