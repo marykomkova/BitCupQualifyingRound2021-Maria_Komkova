@@ -29,11 +29,11 @@ namespace Testing
             driver.FindElement(By.Id("input_74")).Click();
             driver.FindElement(By.Id("input_74")).SendKeys("4");
             driver.FindElement(By.XPath("//*[@id='select_value_label_66']/span[2]")).Click();
-            driver.FindElement(By.XPath("//*[@id='select_option_76']/div[1]")).Click();
+            driver.FindElement(By.Id("select_option_76")).Click();
             driver.FindElement(By.XPath("//*[@id='select_value_label_67']/span[2]")).Click();
-            driver.FindElement(By.XPath("//*[@id='select_option_89']/div")).Click();
+            driver.FindElement(By.Id("select_option_89")).Click();
             driver.FindElement(By.XPath("//*[@id='select_value_label_70']/span[2]")).Click();
-            driver.FindElement(By.XPath("//*[@id='select_option_271']/div[1]")).Click();
+            driver.FindElement(By.Id("select_option_271")).Click();
             driver.FindElement(By.XPath("//*[@id='mainForm']/div[2]/div/md-card/md-card-content/div/div[1]/form/div[16]/button")).Click();
             driver.FindElement(By.Id("input_120")).Click();
             driver.FindElement(By.Id("input_120")).SendKeys("1");////*[@id="select_value_label_439"]/span[2]
@@ -52,6 +52,10 @@ namespace Testing
             driver.FindElement(By.XPath("//*[@id='mainForm']/div[2]/div/md-card/md-card-content/div/div[2]/form/div[13]/button")).Click();
             String totalResult = driver.FindElement(By.XPath("//*[@id='resultBlock']/md-card/md-card-content/div/div/div/h2/b")).Text;
             Match value = Regex.Match(totalResult, @"\d+,\d+.\d+");
+            driver.FindElement(By.Id("email_quote")).Click();
+            driver.FindElement(By.Id("input_441")).Click();
+            driver.FindElement(By.Id("input_441")).SendKeys(email);
+            driver.FindElement(By.XPath("//*[@id='dialogContent_447']/form/md-dialog-actions/button[2]")).Click();
             driver.Url = "https://yopmail.com/";
             driver.FindElement(By.XPath("//*[@id='listeliens']/a[1]")).Click();
             IWebElement field = driver.FindElement(By.Id("login"));
